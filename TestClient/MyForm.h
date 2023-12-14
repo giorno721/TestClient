@@ -161,49 +161,6 @@ namespace TestClient {
 
 		}
 #pragma endregion
-		void client()
-		{
-			
-
-			//while (true) {
-			//	// Send a directory path to the server
-			//	std::string directoryPath;
-			//	std::getline(std::cin, directoryPath);//додати зчитування з txtbx
-
-			//	std::string fileExtension;
-			//	std::getline(std::cin, fileExtension);//додати зчитування з cmbbx
-
-			//	std::string fileAndPath = directoryPath + "|" + fileExtension;
-
-			//	if (send(clientSocket, fileAndPath.c_str(),
-			//		static_cast<int>(fileAndPath.size()) + 1, 0) != SOCKET_ERROR) {
-			//		std::cout << "Directory path and file extension sent to the server: " << fileAndPath << std::endl;
-			//	}
-			//	else {
-			//		std::cerr << "Error sending to server. Error code: " << WSAGetLastError() << std::endl;
-			//		break;
-			//	}
-
-			//	// Receive the directory contents from the server
-			//	char buffer[65536];
-			//	int bytesRead = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
-			//	if (bytesRead > 0) {
-			//		buffer[bytesRead] = '\0';
-			//		std::cout << "Received directory contents from the server:\n" << buffer << std::endl;
-			//	}
-			//	else if (bytesRead == 0) {
-			//		std::cerr << "Server disconnected.\n";
-			//	}
-			//	else {
-			//		std::cerr << "Error receiving from server. Error code: " << WSAGetLastError() << std::endl;
-			//		break;
-			//	}
-			//}
-
-			//// Cleanup
-			//closesocket(clientSocket);
-			//WSACleanup();
-		}
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e)
 	{
@@ -252,8 +209,8 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 		std::string fileAndPath = directoryPath + "|" + fileExtension;
 		if (send(clientSocket, fileAndPath.c_str(),
 			static_cast<int>(fileAndPath.size()) + 1, 0) != SOCKET_ERROR) {
-			directory_contents_textbox->Text += Environment::NewLine + "Directory path and file extension sent to the server: " + Environment::NewLine + msclr::interop::marshal_as<System::String^>(fileAndPath);
-
+			directory_contents_textbox->Text += Environment::NewLine + "Directory path and file extension sent to the server: " + Environment::NewLine + msclr::interop::marshal_as<System::String^>(fileAndPath) + "\r\n";
+			
 		}
 		else {
 			directory_contents_textbox->Text += Environment::NewLine + "Error sending to server. Error code: " + WSAGetLastError() + "\n";
@@ -263,7 +220,8 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 		int bytesRead = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
 		if (bytesRead > 0) {
 			buffer[bytesRead] = '\0';
-			directory_contents_textbox->Text += Environment::NewLine + "Received directory contents from the server:\n" + Environment::NewLine + msclr::interop::marshal_as<System::String^>(buffer);	
+			//directory_contents_textbox->Text += Environment::NewLine + "Received directory contents from the server:\n" + Environment::NewLine + msclr::interop::marshal_as<System::String^>(buffer);	
+			directory_contents_textbox->AppendText(msclr::interop::marshal_as<System::String^>(buffer));
 		}
 		else if (bytesRead == 0) {
 			directory_contents_textbox->Text += Environment::NewLine + "Server disconnected.";
@@ -278,30 +236,30 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) 
 {   
-	file_type_comboBox->Items->Add("*.all");
+	file_type_comboBox->Items->Add("all");
 	file_type_comboBox->Items->Add(".txt");
-	file_type_comboBox->Items->Add("*.doc");
-	file_type_comboBox->Items->Add("*.docx");
-	file_type_comboBox->Items->Add("*.pdf");
-	file_type_comboBox->Items->Add("*.ppt");
-	file_type_comboBox->Items->Add("*.pptx");
-	file_type_comboBox->Items->Add("*.jpg");
-	file_type_comboBox->Items->Add("*.png");
-	file_type_comboBox->Items->Add("*.gif");
-	file_type_comboBox->Items->Add("*.mp3");
-	file_type_comboBox->Items->Add("*.mp4");
-	file_type_comboBox->Items->Add("*.avi");
-	file_type_comboBox->Items->Add("*.swf");
-	file_type_comboBox->Items->Add("*.rar");
-	file_type_comboBox->Items->Add("*.zip");
-	file_type_comboBox->Items->Add("*.iso");
-	file_type_comboBox->Items->Add("*.img");
-	file_type_comboBox->Items->Add("*.exe");
-	file_type_comboBox->Items->Add("*.dll");
-	file_type_comboBox->Items->Add("*.bat");
-	file_type_comboBox->Items->Add("*.cmd");
-	file_type_comboBox->Items->Add("*.com");
-	file_type_comboBox->Items->Add("*.msi");
+	file_type_comboBox->Items->Add(".doc");
+	file_type_comboBox->Items->Add(".docx");
+	file_type_comboBox->Items->Add(".pdf");
+	file_type_comboBox->Items->Add(".ppt");
+	file_type_comboBox->Items->Add(".pptx");
+	file_type_comboBox->Items->Add(".jpg");
+	file_type_comboBox->Items->Add(".png");
+	file_type_comboBox->Items->Add(".gif");
+	file_type_comboBox->Items->Add(".mp3");
+	file_type_comboBox->Items->Add(".mp4");
+	file_type_comboBox->Items->Add(".avi");
+	file_type_comboBox->Items->Add(".swf");
+	file_type_comboBox->Items->Add(".rar");
+	file_type_comboBox->Items->Add(".zip");
+	file_type_comboBox->Items->Add(".iso");
+	file_type_comboBox->Items->Add(".img");
+	file_type_comboBox->Items->Add(".exe");
+	file_type_comboBox->Items->Add(".dll");
+	file_type_comboBox->Items->Add(".bat");
+	file_type_comboBox->Items->Add(".cmd");
+	file_type_comboBox->Items->Add(".com");
+	file_type_comboBox->Items->Add(".msi");
 }
 };
 }
