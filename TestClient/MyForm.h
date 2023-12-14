@@ -112,6 +112,7 @@ namespace TestClient {
 			this->directory_contents_textbox->Location = System::Drawing::Point(31, 65);
 			this->directory_contents_textbox->Multiline = true;
 			this->directory_contents_textbox->Name = L"directory_contents_textbox";
+			this->directory_contents_textbox->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->directory_contents_textbox->Size = System::Drawing::Size(526, 300);
 			this->directory_contents_textbox->TabIndex = 3;
 			// 
